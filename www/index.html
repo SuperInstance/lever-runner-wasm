@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lever-runner WASM Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ lever-runner <span class="dim">wasm</span></h1>
+            <p class="subtitle">Natural language → shell commands, running entirely in your browser</p>
+        </header>
+
+        <div class="panel">
+            <label for="intent-input">What do you want to do?</label>
+            <div class="input-row">
+                <input type="text" id="intent-input" placeholder="e.g. check disk usage, show my ip, list docker containers..." autocomplete="off" autofocus>
+                <button id="run-btn">⚡ Run</button>
+            </div>
+        </div>
+
+        <div class="results" id="results" style="display:none">
+            <div class="result-row">
+                <span class="label">Hash</span>
+                <code id="result-hash"></code>
+            </div>
+            <div class="result-row">
+                <span class="label">Gate</span>
+                <span id="result-gate" class="gate-badge"></span>
+            </div>
+            <div class="result-row">
+                <span class="label">Command</span>
+                <code id="result-command" class="command"></code>
+            </div>
+            <div class="result-row">
+                <span class="label">Confidence</span>
+                <div class="confidence-bar">
+                    <div class="confidence-fill" id="result-confidence-fill"></div>
+                    <span id="result-confidence-text"></span>
+                </div>
+            </div>
+            <div class="result-row">
+                <span class="label">Latency</span>
+                <span id="result-latency"></span>
+            </div>
+            <div class="result-row">
+                <span class="label">Embedding</span>
+                <div class="embedding-preview" id="result-embedding"></div>
+            </div>
+        </div>
+
+        <div class="examples">
+            <h3>Try these:</h3>
+            <div class="example-chips">
+                <button class="chip" data-intent="check disk usage">check disk usage</button>
+                <button class="chip" data-intent="show my ip">show my ip</button>
+                <button class="chip" data-intent="list running processes">list running processes</button>
+                <button class="chip" data-intent="docker list containers">docker list containers</button>
+                <button class="chip" data-intent="check memory">check memory</button>
+                <button class="chip" data-intent="show open ports">show open ports</button>
+                <button class="chip" data-intent="what's the system uptime">what's the system uptime</button>
+                <button class="chip" data-intent="find large files">find large files</button>
+            </div>
+        </div>
+
+        <div class="teach-panel">
+            <h3>📖 Teach a new command</h3>
+            <div class="teach-row">
+                <input type="text" id="teach-intent" placeholder="Intent (e.g. show temp)">
+                <input type="text" id="teach-command" placeholder="Command (e.g. sensors)">
+                <button id="teach-btn">Teach</button>
+            </div>
+            <div id="teach-status" class="status"></div>
+        </div>
+
+        <div class="db-info">
+            <span id="db-count">0</span> commands loaded ·
+            <button id="seed-btn">Seed defaults</button> ·
+            <button id="export-btn">Export JSON</button>
+            <pre id="export-output" style="display:none"></pre>
+        </div>
+
+        <footer>
+            <p>Built with 🦀 Rust + WebAssembly · <a href="https://github.com/SuperInstance/lever-runner-wasm">GitHub</a></p>
+        </footer>
+    </div>
+
+    <script type="module" src="index.js"></script>
+</body>
+</html>
