@@ -5,7 +5,7 @@
 //! and the three-gate pipeline directly in the browser.
 
 use wasm_bindgen::prelude::*;
-use blake2::{Blake2b, Digest, digest::consts::U32};
+use blake2::{Blake2b, Digest, digest::consts::U16};
 use std::sync::RwLock;
 
 /// Cross-platform microsecond timer.
@@ -41,11 +41,11 @@ static COMMAND_DB: RwLock<Option<Vec<CommandEntry>>> = RwLock::new(None);
 /// Hash an intent string with BLAKE2b → 16-char hex string.
 #[wasm_bindgen]
 pub fn hash_intent(intent: &str) -> String {
-    let mut hasher = Blake2b::<U32>::new();
+    let mut hasher = Blake2b::<U16>::new();
     hasher.update(intent.as_bytes());
     let result = hasher.finalize();
-    // Take first 8 bytes → 16 hex chars
-    result[..8].iter().map(|b| format!("{:02x}", b)).collect()
+    // Full 16 bytes → 32 hex chars (BLAKE2b-128)
+    result.iter().map(|b| format!("{:02x}", b)).collect()
 }
 
 // ── Embedding ───────────────────────────────────────────────────────────────

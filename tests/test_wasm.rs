@@ -7,7 +7,7 @@ fn test_hash_intent_deterministic() {
     let h1 = hash_intent("check disk usage");
     let h2 = hash_intent("check disk usage");
     assert_eq!(h1, h2, "hash must be deterministic");
-    assert_eq!(h1.len(), 16, "hash must be 16 hex chars");
+    assert_eq!(h1.len(), 32, "hash must be 32 hex chars (BLAKE2b-128)");
 }
 
 #[test]
